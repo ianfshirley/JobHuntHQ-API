@@ -1,11 +1,10 @@
 from rest_framework.authtoken.models import Token
-
 from accounts.models import User
 from django.conf import settings
 from rest_framework.exceptions import AuthenticationFailed
 
 
-def register_social_user(provider, user_id, email, name):
+def register_social_user(provider, email, name):
     filtered_user_by_email = User.objects.filter(email=email)
 
     if filtered_user_by_email.exists():
@@ -21,7 +20,7 @@ def register_social_user(provider, user_id, email, name):
                 user_id=registered_user).values("key"))
 
             return {
-                'username': registered_user.username,
+                'user_id': registered_user.id,
                 'email': registered_user.email,
                 'tokens': str(new_token[0]['key'])}
 
@@ -43,6 +42,7 @@ def register_social_user(provider, user_id, email, name):
         Token.objects.create(user=new_user)
         new_token = list(Token.objects.filter(user_id=new_user).values("key"))
         return {
+            'user_id': new_user.id,
             'email': new_user.email,
             'username': new_user.username,
             'tokens': str(new_token[0]['key']),
