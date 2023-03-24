@@ -8,7 +8,7 @@ class Job(models.Model):
     METHOD_CHOICES = [
         ('linkedin', 'LinkedIn'),
         ('indeed', 'Indeed'),
-        ('dice', 'Dice'),
+        ('otta', 'Otta'),
         ('company_website', 'Company Website'),
         ('other', 'Other'),
     ]
