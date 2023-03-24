@@ -7,7 +7,9 @@ class JobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Job
-        fields = "__all__"
+        
+        # Get all field names from the model
+        fields = [f.name for f in model._meta.get_fields()]
 
         # Add the method_label to the list of fields
-        fields = list(fields) + ['method_label']
+        fields = fields + ['method_label']
